@@ -2,25 +2,25 @@ from database import DB
 
 
 class Comment:
-    def __init__(self, id, post, message):
+    def __init__(self, id, game, message):
         self.id = id
-        self.post = post
+        self.game = game
         self.message = message
 
     def create(self):
         with DB() as db:
-            values = (self.post.id, self.message)
+            values = (self.game.id, self.message)
             db.execute(
-                'INSERT INTO comments (post_id, message) VALUES (?, ?)',
+                'INSERT INTO comments (game_id, message) VALUES (?, ?)',
                 values
             )
             return self
 
     @staticmethod
-    def find_by_post(post):
+    def find_by_game(game):
         with DB() as db:
             rows = db.execute(
-                'SELECT * FROM comments WHERE post_id = ?',
+                'SELECT * FROM comments WHERE game_id = ?',
                 (post.id,)
             ).fetchall()
             return [Comment(*row) for row in rows]
