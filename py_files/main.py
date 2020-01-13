@@ -80,3 +80,6 @@ def user_profile():
 @require_login
 def admin_profile():
 	return render_template("user_profile_admin.html")
+
+if __name__ == "__main__":
+    app.run(debug = True)

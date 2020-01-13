@@ -15,6 +15,16 @@ CREATE TABLE IF NOT EXISTS users
 ''')
 conn.commit()
 
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS comments
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        game_id INTEGER,
+        content TEXT,
+        FOREIGN KEY(game_id) REFERENCES games(id)
+    )
+''')
+conn.commit()
 
 class DB:
     def __enter__(self):
