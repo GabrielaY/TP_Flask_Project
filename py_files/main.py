@@ -2,16 +2,16 @@ from functools import wraps
 from flask import Flask, session
 from flask import render_template, request, session, redirect, url_for
 import json
-username = 'none'
 from user import User
+from game_categories import Category
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "OCML3BRawWEUeaxcuKHLpw"
+app.secret_key = "OCML3BRawWEUeaxcuKHLpw"
     
 def require_login(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if session["USERNAME"] is None:
-        	redirect('/login')
+        if not session.get("logged_in"):
+        	return redirect('/login')
         return func(*args, **kwargs)
         	
     return wrapper
@@ -30,15 +30,14 @@ def sign_in():
         username = req.get("username")
         password = req.get("password")
         user = User.find_by_username(username)
-
         if not user or not user.verify_password(password):
             print("Wrong username or password")
             return redirect(request.url)
 
         else:
-            session["USERNAME"] = username
-            print("session username set")
-            return redirect('/')
+        	session["logged_in"] = True
+        	session["USERNAME"] = username
+        	return redirect('/')
 
     return render_template("login.html")
 
@@ -66,20 +65,22 @@ def main_page():
 def view_profile():
 	
 	user = User.find_by_username(session['USERNAME'])
-	if User.check_if_admin(user):
-		return redirect('/admin_profile')
+
+	if user.admin == 0:
+		return render_template("user_profile.html")
 	else:
-		return redirect('/user_profile')
+		return render_template("user_profile_admin.html")
+@app.route('/logout')
+def sign_out():
 
-@app.route('/user_profile')
-@require_login
-def user_profile():
-	return render_template("user_profile.html")
+    session["USERNAME"] = None
+    return redirect('/')
 
-@app.route('/admin_profile')
-@require_login
-def admin_profile():
-	return render_template("user_profile_admin.html")
 
+
+@app.route('/categories')
+def get_categories():
+    return render_template("categories.html", categories=Category.all())
+    
 if __name__ == "__main__":
     app.run(debug = True)
