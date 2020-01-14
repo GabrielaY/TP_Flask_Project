@@ -15,7 +15,7 @@ class User:
         self.id = id
         self.username = username
         self.password = password
-        self.admin = 0
+        self.admin = admin
 
 
     def create(self):
@@ -62,13 +62,6 @@ class User:
         except BadSignature:
             return False
         return True
-
-    @staticmethod
-    def check_if_admin(self):
-        if self.admin == 1:
-            return 1
-        else:
-            return 0
 
 
 

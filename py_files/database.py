@@ -13,6 +13,25 @@ CREATE TABLE IF NOT EXISTS users
         admin INTEGER
     )
 ''')
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS categories
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT
+    )
+''')
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS games
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT,
+        developers TEXT,
+        content TEXT,
+        category_id INTEGER,
+        FOREIGN KEY(category_id) REFERENCES categories(id)
+    )
+''')
+
 conn.commit()
 
 
