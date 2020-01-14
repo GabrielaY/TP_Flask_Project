@@ -1,5 +1,5 @@
 from database import DB
-
+from game import Game
 
 
 class Category:
@@ -35,10 +35,12 @@ class Category:
             db.execute('DELETE FROM categories WHERE id = ?', (self.id,))
             db.execute(
                 '''
-                UPDATE posts
+                UPDATE games
                 SET category_id = 0 WHERE category_id = ?
                 ''',
                 (self.id,)
             )
 
-
+    
+    def games(self):
+        return Game.find_by_category(self)
