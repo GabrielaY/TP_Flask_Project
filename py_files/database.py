@@ -13,15 +13,16 @@ CREATE TABLE IF NOT EXISTS users
         admin INTEGER
     )
 ''')
-conn.commit()
 
 conn.cursor().execute('''
 CREATE TABLE IF NOT EXISTS comments
     (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         game_id INTEGER,
+        user_id INTEGER,
         content TEXT,
         FOREIGN KEY(game_id) REFERENCES games(id)
+        FOREIGN KEY(user_id) REFERENCES users(id)
     )
 ''')
 conn.commit()

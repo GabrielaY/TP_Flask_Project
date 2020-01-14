@@ -1,9 +1,10 @@
 from database import DB
 
 class Comment:
-    def __init__(self, id, content, game):
+    def __init__(self, id, content, user, game):
         self.id = id
         self.game = game
+        self.user = user
         self.content = content
        
     def create(self):
