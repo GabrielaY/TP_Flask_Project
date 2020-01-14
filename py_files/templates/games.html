@@ -1,0 +1,10 @@
+<title>Games</title>
+
+
+
+<h1>Games</h1>
+{% for game in games %}
+<a href="/games/{{ game.id }}"><b>Name:</b> {{ game.name }} | Author: {{ game.developers }}</a>
+<br/>
+{% endfor %}
+

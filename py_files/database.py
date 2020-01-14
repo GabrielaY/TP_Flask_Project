@@ -26,24 +26,16 @@ CREATE TABLE IF NOT EXISTS games
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         name TEXT,
         developers TEXT,
-        content TEXT,
+        review TEXT,
+        rating REAL,
+        release TEXT,
         category_id INTEGER,
         FOREIGN KEY(category_id) REFERENCES categories(id)
     )
 ''')
 
-conn.cursor().execute('''
-CREATE TABLE IF NOT EXISTS comments
-    (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        game_id INTEGER,
-        user_id INTEGER,
-        content TEXT,
-        FOREIGN KEY(game_id) REFERENCES games(id)
-        FOREIGN KEY(user_id) REFERENCES users(id)
-    )
-''')
 conn.commit()
+
 
 class DB:
     def __enter__(self):

@@ -3,6 +3,7 @@ from flask import Flask, session
 from flask import render_template, request, session, redirect, url_for
 import json
 from user import User
+from game import Game
 from game_categories import Category
 app = Flask(__name__)
 app.secret_key = "OCML3BRawWEUeaxcuKHLpw"
@@ -14,6 +15,15 @@ def require_login(func):
         	return redirect('/login')
         return func(*args, **kwargs)
         	
+    return wrapper
+def require_admin(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        user = User.find_by_username(session["USERNAME"])
+        if not user.admin:
+            return redirect('/')
+        return func(*args, **kwargs)
+            
     return wrapper
 
 @app.route('/')
@@ -74,13 +84,33 @@ def view_profile():
 def sign_out():
 
     session["USERNAME"] = None
+
     return redirect('/')
 
+@app.route('/categories/<int:id>/delete')
+@require_admin
+def delete_category(id):
+    Category.find(id).delete()
+    return redirect("/")
+
+@app.route('/categories/new', methods=["GET", "POST"])
+@require_admin
+def new_category():
+    if request.method == "GET":
+        return render_template("new_category.html")
+    elif request.method == "POST":
+        category = Category(None, request.form["name"])
+        category.create()
+        return redirect("/categories")
+
+@app.route('/categories/<int:id>')
+def get_category(id):
+    return render_template("category.html", category=Category.find(id))
 
 
 @app.route('/categories')
 def get_categories():
     return render_template("categories.html", categories=Category.all())
-    
-if __name__ == "__main__":
-    app.run(debug = True)
+@app.route('/games')
+def list_games():
+    return render_template('games.html', games=Game.all())
