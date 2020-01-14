@@ -1,0 +1,8 @@
+<title>Categories - {{ category.name }}</title>
+
+<h1>{{ category.name }}</h1>
+{% for game in category.games() %}
+<a href="/games/{{ game.id }}"><b>Name:</b> {{ game.name }} | Author: {{ game.developers }}</a>
+<br/>
+{% endfor %}
+
