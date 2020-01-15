@@ -4,6 +4,7 @@
 
 <h1>Games</h1>
 {% for game in games %}
+<img style="width: 100; height: 150" src={{game.image}}>
 <a href="/games/{{ game.id }}"><b>Name:</b> {{ game.name }} | Author: {{ game.developers }}</a>
 <br/>
 {% endfor %}

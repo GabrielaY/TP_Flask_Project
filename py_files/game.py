@@ -2,13 +2,14 @@ from database import DB
 
 
 class Game:
-    def __init__(self, id, name, developers, review, rating, release, category):
+    def __init__(self, id, name, developers, review, rating, release, image, category):
         self.id = id
         self.name = name
         self.developers = developers
         self.review = review
         self.release = release
         self.rating = rating
+        self.image = image
         self.category = category
 
     @staticmethod
@@ -37,10 +38,10 @@ class Game:
 
     def create(self):
         with DB() as db:
-            values = (self.name, self.developers, self.review, self.category.id)
+            values = (self.name, self.developers, self.review, self. rating, self.image, self.category.id)
             db.execute('''
-                INSERT INTO games (name, developers, review, rating, release category_id)
-                VALUES (?, ?, ?, ?, ?, ?)''', values)
+                INSERT INTO games (name, developers, review, rating, release, image, category_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?)''', values)
             return self
 
     def save(self):
@@ -52,13 +53,15 @@ class Game:
                 self.release,
                 self.rating,
                 self.category.id,
+                self.image,
                 self.id
             )
             db.execute(
                 '''UPDATE games
-                SET name = ?, developers = ?, review = ?, rating = ?, release = ?, category_id = ?
+                SET name = ?, developers = ?, review = ?, rating = ?, release = ?, image = ?, category_id = ?
                 WHERE id = ?''', values)
             return self
+
 
     def delete(self):
         with DB() as db:

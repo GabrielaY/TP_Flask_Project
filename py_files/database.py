@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS games
         review TEXT,
         rating REAL,
         release TEXT,
+        image TEXT,
         category_id INTEGER,
         FOREIGN KEY(category_id) REFERENCES categories(id)
     )

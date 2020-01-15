@@ -1,0 +1,16 @@
+<title>{{game.name}}</title>
+<a href="/">Home</a>
+
+<h1>{{ game.name }}</h1>
+<h2>{{ game.developers }}</h2>
+<h3>{{ game.rating}}</h3>
+<hr>
+<p>
+{{ game.review }}
+</p>
+<form action = "/rate" method="POST">
+	<label>Rate this game!</label>
+	<input type="real" name="rating"/>
+	<br>
+	<button type="submit"> Rate!</button>
+</form>

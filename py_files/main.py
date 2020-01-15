@@ -84,7 +84,7 @@ def view_profile():
 def sign_out():
 
     session["USERNAME"] = None
-
+    session["logged_in"] = False
     return redirect('/')
 
 @app.route('/categories/<int:id>/delete')
@@ -111,6 +111,13 @@ def get_category(id):
 @app.route('/categories')
 def get_categories():
     return render_template("categories.html", categories=Category.all())
+
 @app.route('/games')
 def list_games():
     return render_template('games.html', games=Game.all())
+
+@app.route('/games/<int:id>')
+def show_game(id):
+    game = Game.find(id)
+
+    return render_template('game.html', game=game)
