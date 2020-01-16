@@ -17,7 +17,6 @@ class User:
         self.password = password
         self.admin = admin
 
-
     def create(self):
         with DB() as db:
             values = (self.username, self.password, self.admin)
@@ -48,20 +47,6 @@ class User:
     def verify_password(self, password):
         return self.password == hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-    def generate_token(self):
-        s = Serializer(SECRET_KEY, expires_in=600)
-        return s.dumps({'username': self.username})
-
-    @staticmethod
-    def verify_token(token):
-        s = Serializer(SECRET_KEY)
-        try:
-            s.loads(token)
-        except SignatureExpired:
-            return False
-        except BadSignature:
-            return False
-        return True
 
 
 
