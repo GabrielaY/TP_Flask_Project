@@ -1,14 +1,32 @@
-
-<h1>Games</h1>
-<a = href="/games/sort_by_rating"> Sort by rating </a>
-<a = href="/games/sort_by_alp"> Sort Alphabetical order</a>
-<a = href="/games/newest"> Sort by release date (Newest)</a>
-{% for game in games %}
-<img style="width: 100; height: 150" src={{game.image}}>
-<a href="/games/{{ game.id }}"><b>Name:</b> {{ game.name }} | Author: {{ game.developers }}</a>
-<br/>
-{% endfor %}
-
-
-
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/games.css')}}">
+    <title>Games</title>
+</head>
+<body>
+    <header class="site-header">
+        <nav class="site-nav">
+            <div class="flex-box">
+              <div class="flex-item">
+                <a class="active" href="/main"><i class="fa fa-fw fa-home"></i></a>
+                <a href="/profile">Profile</a>
+                <a href="/categories">Categories</a>
+                <a href="/games">Games</a>
+              </div>
+              <div class="flex-item">
+                <a href="/register">Sign up</a>
+                <a href="/login">Login</a>
+              </div>
+            </div>
+        </nav>
+    </header>
+    <div class="content">
+        <h1>games</h1>
+    </div>
+</body>
+</html>
