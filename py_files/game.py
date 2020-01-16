@@ -28,14 +28,14 @@ class Game:
     def sort_by_alp():
         with DB() as db:
             rows = db.execute('''
-                SELECT id, name, developers, review, rating, release, image, category_id FROM games ORDER BY name ASC;
+                SELECT * FROM games ORDER BY name ASC;
             ''').fetchall()
             return [Game(*row) for row in rows]
     @staticmethod
     def sort_by_newest():
         with DB() as db:
-            rows = db.execute('''
-                SELECT id, name, developers, review, rating, release, image, category_id FROM games ORDER BY release DESC;
+            rows = db.execute('''   
+                SELECT * FROM games ORDER BY release DESC;
             ''').fetchall()
             return [Game(*row) for row in rows]
     @staticmethod
