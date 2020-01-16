@@ -21,21 +21,21 @@ class Game:
     def sort_by_rating():
         with DB() as db:
             rows = db.execute('''
-                SELECT game_id, name, developers, review, rating, release, image, category_id  FROM ratings JOIN games  ON ratings.game_id = games.id GROUP BY game_id ORDER BY avg(score) DESC LIMIT 3;
+                SELECT game_id, name, developers, review, rating, release, image, category_id  FROM ratings JOIN games  ON ratings.game_id = games.id GROUP BY game_id ORDER BY avg(score) DESC;
             ''').fetchall()
             return [Game(*row) for row in rows]
     @staticmethod
     def sort_by_alp():
         with DB() as db:
             rows = db.execute('''
-                SELECT id, name, developers, review, rating, release, image, category_id FROM games ORDER BY name ASC LIMIT 3;
+                SELECT id, name, developers, review, rating, release, image, category_id FROM games ORDER BY name ASC;
             ''').fetchall()
             return [Game(*row) for row in rows]
     @staticmethod
     def sort_by_newest():
         with DB() as db:
             rows = db.execute('''
-                SELECT id, name, developers, review, rating, release, image, category_id FROM games ORDER BY release DESC LIMIT 3;
+                SELECT id, name, developers, review, rating, release, image, category_id FROM games ORDER BY release DESC;
             ''').fetchall()
             return [Game(*row) for row in rows]
     @staticmethod

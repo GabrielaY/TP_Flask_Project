@@ -101,7 +101,7 @@ def main_page():
 @require_login
 def view_profile():
 
-    user = User.find_by_username(session['USERNAME'])
+    user = User.find_by_username(session["USERNAME"])
 
     if user.admin == 0:
         return render_template("user_profile.html")
