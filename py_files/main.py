@@ -104,9 +104,9 @@ def view_profile():
     user = User.find_by_username(session["USERNAME"])
 
     if user.admin == 0:
-        return render_template("user_profile.html")
+        return render_template("user_profile.html", user = user)
     else:
-        return render_template("user_profile_admin.html")
+        return render_template("user_profile_admin.html", user = user)
 
 
 @app.route('/logout')
