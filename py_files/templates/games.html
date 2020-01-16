@@ -3,6 +3,9 @@
 
 
 <h1>Games</h1>
+<a = href="/games/sort_by_rating"> Sort by rating </a>
+<a = href="/games/sort_by_alp"> Sort Alphabetical order</a>
+<a = href="/games/newest"> Sort by release date (Newest)</a>
 {% for game in games %}
 <img style="width: 100; height: 150" src={{game.image}}>
 <a href="/games/{{ game.id }}"><b>Name:</b> {{ game.name }} | Author: {{ game.developers }}</a>

@@ -34,7 +34,17 @@ CREATE TABLE IF NOT EXISTS games
         FOREIGN KEY(category_id) REFERENCES categories(id)
     )
 ''')
-
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS ratings
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        score REAL NOT NULL,
+        user_id INTEGER UNIQUE,
+        game_id INTEGER,
+        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(game_id) REFERENCES games(id)
+    )
+''')
 conn.commit()
 
 

@@ -17,7 +17,27 @@ class Game:
         with DB() as db:
             rows = db.execute('SELECT * FROM games').fetchall()
             return [Game(*row) for row in rows]
-
+    @staticmethod
+    def sort_by_rating():
+        with DB() as db:
+            rows = db.execute('''
+                SELECT game_id, name, developers, review, rating, release, image, category_id  FROM ratings JOIN games  ON ratings.game_id = games.id GROUP BY game_id ORDER BY avg(score) DESC LIMIT 3;
+            ''').fetchall()
+            return [Game(*row) for row in rows]
+    @staticmethod
+    def sort_by_alp():
+        with DB() as db:
+            rows = db.execute('''
+                SELECT id, name, developers, review, rating, release, image, category_id FROM games ORDER BY name ASC LIMIT 3;
+            ''').fetchall()
+            return [Game(*row) for row in rows]
+    @staticmethod
+    def sort_by_newest():
+        with DB() as db:
+            rows = db.execute('''
+                SELECT id, name, developers, review, rating, release, image, category_id FROM games ORDER BY release DESC LIMIT 3;
+            ''').fetchall()
+            return [Game(*row) for row in rows]
     @staticmethod
     def find(id):
         with DB() as db:
@@ -26,6 +46,15 @@ class Game:
                 (id,)
             ).fetchone()
             return Game(*row)
+    @staticmethod
+    def calc_rating(id):
+        with DB() as db:
+            row = db.execute(
+                'SELECT avg(score) as avg_score FROM ratings WHERE game_id = ?',
+                (id,)
+            ).fetchone()
+            
+            return row[0]
 
     @staticmethod
     def find_by_category(category):
@@ -35,7 +64,7 @@ class Game:
                 (category.id,)
             ).fetchall()
             return [Game(*row) for row in rows]
-
+    
     def create(self):
         with DB() as db:
             values = (self.name, self.developers, self.review, self. rating, self.image, self.category.id)

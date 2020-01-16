@@ -17,7 +17,6 @@ class User:
         self.password = password
         self.admin = admin
 
-
     def create(self):
         with DB() as db:
             values = (self.username, self.password, self.admin)

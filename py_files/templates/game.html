@@ -3,12 +3,12 @@
 
 <h1>{{ game.name }}</h1>
 <h2>{{ game.developers }}</h2>
-<h3>{{ game.rating}}</h3>
+<h3>{{rating}}</h3>
 <hr>
 <p>
 {{ game.review }}
 </p>
-<form action = "/rate" method="POST">
+<form action = "/games/{{game.id}}/rate" method="POST">
 	<label>Rate this game!</label>
 	<input type="real" name="rating"/>
 	<br>

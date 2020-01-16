@@ -22,6 +22,7 @@ class Category:
                 return Category(0, "No category")
             return Category(*row)
 
+    
     def create(self):
         with DB() as db:
             values = (self.name,)
