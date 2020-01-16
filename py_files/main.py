@@ -114,3 +114,6 @@ def get_categories():
 @app.route('/games')
 def list_games():
     return render_template('games.html', games=Game.all())
+
+if __name__ == "main":
+    app.run(debug = True)

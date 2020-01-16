@@ -1,0 +1,28 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+.site-header {
+  background-color: #333;
+}
+.flex-box {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+.site-nav{
+  display: flex;
+  justify-content: space-between;
+}
+
+a {
+  display: flex;
+  color: lightgray;
+  text-align: center;
+  padding: 1rem 1rem;
+  text-decoration: none;
+}
+a:hover {
+  background-color: rgba(39, 202, 39, 0.932);
+}
