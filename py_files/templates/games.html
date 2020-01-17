@@ -26,7 +26,19 @@
         </nav>
     </header>
     <div class="content">
-        <h1>games</h1>
-    </div>
+        <div class="content-header">
+            <h1>Games</h1>
+            <div class="sort-bar">
+              <a  href="/games/newest"> Sort by release date (Newest)</a>
+              <a  href="/games/sort_by_rating"> Sort by rating </a>
+              <a  href="/games/sort_by_alp"> Sort Alphabetical order</a>
+            </div>
+        </div> 
+        <div class="game">
+          {% for game in games %}
+          <a href="/games/{{ game.id }}"><img style="width:325px;" src={{game.image}}></a>
+          {% endfor %}
+        </div>
+    </div>   
 </body>
 </html>

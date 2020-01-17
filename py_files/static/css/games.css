@@ -30,7 +30,50 @@ body {
     margin: 5rem auto;
     max-width: 1400px;
     min-height: 80vh;
-    padding: 1rem;
     background-color: white;
     box-shadow: 4px 8px 10px 6px #888888;
+  }
+.content a{
+    text-decoration: none;
+    color:  white;
+}
+.content h1{
+    color: white;
+    font-size: 4rem;
+    padding: 2rem;
+    margin: 0;
+}
+.content-header{
+    background-color: #333;
+    display:flex;
+    justify-content: space-between;
+}
+.sort-bar{
+    display: flex;
+    flex-direction: column-reverse;
+}
+.sort-bar a{
+    color: lightgray;
+    text-align: center;
+    padding: 1rem 1rem;
+    text-decoration: none;
+}
+.sort-bar a:hover {
+    background-color: rgba(53, 192, 53, 0.932);
+    color: #333;
+}
+.game {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+
+}
+.game > a{
+    display: block;
+}
+img:hover{
+    opacity: 0.6;
+}
+img{
+    margin-top: 1rem;
 }
