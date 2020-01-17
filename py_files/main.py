@@ -1,9 +1,9 @@
 from functools import wraps
 from flask import Flask, session
-from database import DB
 from flask import render_template, request, session, redirect, url_for
 import json
 from user import User
+from owned import Owned
 from rating import Rating
 from game import Game
 from game_categories import Category
@@ -104,7 +104,7 @@ def view_profile():
     user = User.find_by_username(session["USERNAME"])
 
     if user.admin == 0:
-        return render_template("user_profile.html", user = user)
+        return render_template("user_profile.html", user = user, games = Game.owned_by_user())
     else:
         return render_template("user_profile_admin.html", user = user)
 
