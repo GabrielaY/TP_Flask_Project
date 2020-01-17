@@ -1,6 +1,7 @@
 from functools import wraps
 from flask import Flask, session
 from flask import render_template, request, session, redirect, url_for
+from logger import info_log, error_log
 import json
 from user import User
 from owned import Owned
@@ -41,22 +42,24 @@ def hello_world():
 def sign_in():
 
     if request.method == "POST":
-
+    	error = ''
         req = request.form
 
         username = req.get("username")
         password = req.get("password")
         user = User.find_by_username(username)
         if not user or not user.verify_password(password):
-            print("Wrong username or password")
-            return redirect(request.url)
+            error_log.error("Login failed for %s!" %username)
+            error = "Invalid username or password!"
+            return render_template("login.html", error = error)
 
         else:
             session["logged_in"] = True
             session["USERNAME"] = username
+            info_log.info("%s logged in successfully." %username)
             return redirect('/')
-
-    return render_template("login.html")
+    error = ''
+    return render_template("login.html", error = error)
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -65,17 +68,35 @@ def register():
         return render_template('register.html')
     elif request.method == 'POST':
         user = User.find_by_username(request.form['username'])
-        if not user:
+        if user:
+            username_error = "Username already in use!"
+        else:
+            username_error = ''
+        if len(request.form["password"]) < 8:
+            len_error = "Password must be at least 8 symbols"
+            pass_len = 1
+        else:
+            len_error = ''
+            pass_len = 0
+        if request.form['password'] != request.form['confirm-password']:
+            match_error = "Passwords must match!"
+            match = 1
+        else:
+            match_error = ''
+            match = 0
+        if not user and not pass_len == 1 and not match == 1:
             values = (
-                None,
+                None,   
                 request.form['username'],
                 User.hash_password(request.form['password']),
                 0
             )
             User(*values).create()
+            info_log.info(" User %s registred successfully." % request.form['username'])
             return redirect('/')
         else:
-            return redirect(request.url)
+            error_log.error("Registration failed!")
+            return render_template('register.html', username_error = username_error, len_error = len_error, match_error = match_error, username = request.form['username'], password = request.form['password'])
 
 
 @app.route('/games/sort_by_rating')
@@ -114,6 +135,7 @@ def sign_out():
 
     session["USERNAME"] = None
     session["logged_in"] = False
+    info_log.info("User logged_out")
     return redirect('/')
 
 
@@ -134,7 +156,7 @@ def rate_game(id):
         game
     )
     Rating(*values).create()
-
+    info_log.info("%s rated game %s" %user.username %game.name)
     return redirect('/')
 
 
@@ -142,6 +164,7 @@ def rate_game(id):
 @require_admin
 def delete_category(id):
     Category.find(id).delete()
+    info_log.info("Category deleted")
     return redirect("/")
 
 
@@ -153,6 +176,7 @@ def new_category():
     elif request.method == "POST":
         category = Category(None, request.form["name"])
         category.create()
+        info_log.info("Category %s added successfully" %category.name )
         return redirect("/categories")
 
 

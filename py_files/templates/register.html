@@ -16,10 +16,17 @@
         </div>
         <div class="form">
             <form class="login-form" action="/register" method="post">
-                <input type="text" placeholder="Username" name="username" required/>
-                <input type="password" placeholder="Password" name="password" required/>
+                <input type="text" placeholder="Username" name="username" value="{{username}}" required/>
+                <p>{{username_error}}</p>
+                <input type="password" placeholder="Password" name="password" value="{{password}}" required/>
+                <p>{{len_error}}</p>
                 <input type="password" placeholder="Confirm password" name="confirm-password" required/>
+                <p>{{match_error}}</p>
                 <button type="submit">Sign up</button>
+                <br>
+                <b>Already have an account?</b>
+                <a href="/login">Log in</a>
+                <p></p>
             </form>
         </div>
     </div>
