@@ -65,7 +65,7 @@ body {
 .game {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: flex-start;
 
 }
 .game > a{
@@ -75,5 +75,5 @@ img:hover{
     opacity: 0.6;
 }
 img{
-    margin-top: 1rem;
+    margin-left: 1rem;
 }
