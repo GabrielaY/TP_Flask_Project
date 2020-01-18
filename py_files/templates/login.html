@@ -18,7 +18,12 @@
             <form class="login-form" action="/login" method="POST">
                 <input type="text" placeholder="Username" name="username" required/>
                 <input type="password" placeholder="Password" name="password" required/>
+                <p>{{error}}</p>
                 <button type="submit">Sign in</button>
+                <br>
+                <b>Don't have an account?</b>
+                <a href="/register">Sign up</a>
+                <p></p>
             </form>
         </div>
     </div>
