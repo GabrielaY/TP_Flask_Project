@@ -125,7 +125,7 @@ def sort_by_newest():
 
 @app.route('/main')
 def main_page():
-	return render_template("main.html")
+	return render_template("main.html", games=Game.sort_by_rating())
 
 
 @app.route('/profile')
