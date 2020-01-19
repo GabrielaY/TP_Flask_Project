@@ -32,7 +32,6 @@ body {
     margin-bottom: 0px;
     max-width: 1400px;
     min-height: 70vh;
-    padding:0 1.5rem;
     color: #333;
     background-color: white;
     box-shadow: 4px 8px 10px 6px #888888;
@@ -40,16 +39,19 @@ body {
   .content-header{
       display: flex;
       justify-content: flex-start;
+      align-items: center;
+      padding:0 1.5rem;
   }
   .content-header h1{
-    margin-top:7rem;
-    margin-bottom: 0;
     margin-left: 7rem;
     font-size: 4rem;
 }
 .main-content{
   display: flex;
   justify-content: space-between;
+  padding: 0 1.5rem;
+  background-color: #333;
+  color: lightgrey;
 }
 .comments{
   width: 75%;
@@ -107,10 +109,19 @@ body {
   color: #333;
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
+ input{
+  background-color:white;
+  border-radius: 2px;
+  color: #333;
+  border: 1px solid lightgrey;
+}
+::-webkit-input-placeholder{
+  color:#333;
+}
 .like{
-
+  color:lightgrey;
   margin-top: 1rem;
-  background-color: white;
+  background-color: #333;
   font-size: 1.5rem;
 }
 .like:hover{
@@ -118,14 +129,11 @@ body {
 }
 .ulike{
   margin-top: 1rem;
-  background-color: white;
-  color: red;
-}
-.ulike{
-  background-color: white;
+  background-color: #333;
   color: red;
   font-size: 1.5rem;
 }
+
 .ulike:hover{
-  color: black;
+  color:lightgrey;
 }
