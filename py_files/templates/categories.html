@@ -1,7 +1,9 @@
 <title>Categories</title>
 
 <h1>Game Categories</h1>
-
+{% if user.admin == 1 %}
+<a href="/categories/new"><button>New category</button></a> <br/>
+{% endif %}
 {% for category in categories %}
 <a href="/categories/{{ category.id }}">{{ category.name }}</a>
 <br/>

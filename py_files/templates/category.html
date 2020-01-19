@@ -1,6 +1,10 @@
 <title>Categories - {{ category.name }}</title>
 
 <h1>{{ category.name }}</h1>
+{% if user.admin == 1 %}
+<a href = "/categories/{{category.id}}/delete"><button>Delete</button></a>
+{% endif %}
+<br/>
 {% for game in category.games() %}
 <a href="/games/{{ game.id }}"><b>Name:</b> {{ game.name }} | Author: {{ game.developers }}</a>
 <br/>

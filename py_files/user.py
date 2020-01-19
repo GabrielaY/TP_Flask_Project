@@ -1,4 +1,4 @@
-import hashlib
+from passlib.hash import sha256_crypt
 
 from database import DB
 
@@ -41,11 +41,11 @@ class User:
 
     @staticmethod
     def hash_password(password):
-        return hashlib.sha256(password.encode('utf-8')).hexdigest()
+        return sha256_crypt.encrypt(password)
 
 
     def verify_password(self, password):
-        return self.password == hashlib.sha256(password.encode('utf-8')).hexdigest()
+        return sha256_crypt.verify(password, self.password)
 
 
 

@@ -27,16 +27,22 @@
   </header>
   <div class="content">
     <div class="profile-pic">
-      <img src="/static/iim.png" alt="Profile picture" width="250">
-      <h1>Name</h1>
-      <form action ="/logout"> 
-        <button class="logout-btt" type = "logout" > Logout</button>
+      <img src="{{url_for('static', filename = 'iim.png')}}" alt="Profile picture" width="250">
+      <h1 style="text-align: center;">{{user.username}}</h1>
+      {% if user.admin == 1 %}
+      <form action = "/categories/new">
+        <button class="category-btt">Add category</button>
       </form>
+      {% endif %}
+      <form action ="/logout"> 
+        <button class="logout-btt"> Logout</button>
+      </form>
+      
     </div>
     <div class="fav-games">
       <h1>Favourite games</h1>
       {% for game in games %}
-      <img style="width: 100; height: 150" src={{game.image}}>
+      <img style="width: 150px; height: 200px" src={{game.image}}>
       <a href="/games/{{ game.id }}">{{ game.name }} | Author: {{ game.developers }}</a>
       {% endfor %}
     </div>
