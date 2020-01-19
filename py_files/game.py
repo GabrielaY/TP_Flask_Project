@@ -2,13 +2,12 @@ from database import DB
 
 
 class Game:
-	def __init__(self, id, name, developers, review, rating, release, image, category):
+	def __init__(self, id, name, developers, review, release, image, category):
 		self.id = id
 		self.name = name
 		self.developers = developers
 		self.review = review
 		self.release = release
-		self.rating = rating
 		self.image = image
 		self.category = category
 
@@ -21,16 +20,16 @@ class Game:
 	def sort_by_rating():
 		with DB() as db:
 			rows = db.execute('''
-				SELECT game_id, name, developers, review, rating, release, image, category_id  FROM ratings JOIN games  ON ratings.game_id = games.id GROUP BY game_id ORDER BY avg(score) DESC;
+				SELECT game_id, name, developers, review, release, image, category_id  FROM ratings JOIN games  ON ratings.game_id = games.id GROUP BY game_id ORDER BY avg(score) DESC;
 			''').fetchall()
 			return [Game(*row) for row in rows]
 
 	@staticmethod
-	def owned_by_user():
+	def owned_by_user(id):
 		with DB() as db:
 			rows = db.execute('''
-				SELECT game_id, name, developers, review, rating, release, image, category_id  FROM owned JOIN games  ON owned.game_id = games.id GROUP BY game_id ORDER BY name DESC;
-			''').fetchall()
+				SELECT game_id, name, developers, review, release, image, category_id  FROM owned JOIN games ON owned.game_id = games.id WHERE owned.user_id = ? ORDER BY name DESC 
+			''',(id,)).fetchall()
 			return [Game(*row) for row in rows]
 
 	@staticmethod
@@ -76,10 +75,10 @@ class Game:
 	
 	def create(self):
 		with DB() as db:
-			values = (self.name, self.developers, self.review, self. rating, self.image, self.category.id)
+			values = (self.name, self.developers, self.review, self.image, self.category.id)
 			db.execute('''
-				INSERT INTO games (name, developers, review, rating, release, image, category_id)
-				VALUES (?, ?, ?, ?, ?, ?, ?)''', values)
+				INSERT INTO games (name, developers, review, release, image, category_id)
+				VALUES (?, ?, ?, ?, ?, ?)''', values)
 			return self
 
 	def save(self):
@@ -89,14 +88,13 @@ class Game:
 				self.developers,
 				self.review,
 				self.release,
-				self.rating,
 				self.category.id,
 				self.image,
 				self.id
 			)
 			db.execute(
 				'''UPDATE games
-				SET name = ?, developers = ?, review = ?, rating = ?, release = ?, image = ?, category_id = ?
+				SET name = ?, developers = ?, review = ?, release = ?, image = ?, category_id = ?
 				WHERE id = ?''', values)
 			return self
 
