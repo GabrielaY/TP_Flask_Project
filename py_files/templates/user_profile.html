@@ -42,8 +42,7 @@
     <div class="fav-games">
       <h1>Favourite games</h1>
       {% for game in games %}
-      <img style="width: 150px; height: 200px" src={{game.image}}>
-      <a href="/games/{{ game.id }}">{{ game.name }} | Author: {{ game.developers }}</a>
+      <a href="/games/{{ game.id }}"><img style="height:250px;" src={{game.image}}></a>
       {% endfor %}
     </div>
   </div>
