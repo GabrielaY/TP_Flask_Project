@@ -31,12 +31,27 @@
 			<h1>{{ game.name }}</h1>
 		</div>
 		<hr>
-		<div class="game-name">
-			<h2>By: {{ game.developers }}</h2>
-			<h2>Rated: {{rating}}</h2>
-		</div>
 		<div class="main-content">
 			<div class="system-req">
+				<h2>By: {{ game.developers }}</h2>
+				<h2>Rated: {{rating}}</h2>
+				{% if logged_in == 1%}
+				<form action = "/games/{{game.id}}/rate" method="POST">
+					<input type="number" placeholder="Rate this game" name="rating"/>
+					<button class="rate" type="submit">Rate</button>
+					{% if owned == 1 %}
+					<form action= "/games/{{game.id}}/unlike" method="POST">
+						<button class="ulike" type="submit"><i class="fa fa-thumbs-up	"></i></button>
+					</form>
+					{% else %}
+					<form action= "/games/{{game.id}}/like" method="POST">
+						<button class="like" type="submit"><i class="fa fa-thumbs-up	"></i></button>
+					</form>
+					{% endif %}
+				</form>
+				{% else %}
+				<p><a href="/login">Log in</a> to rate games!</p>
+				{% endif %}
 				<h2> Mininal reuqirements: </h2>
 				<p>CPU: {{requirements.cpu}}</p>
 				<p>CPU SPEED: {{requirements.cpu_speed}}</p>
@@ -54,25 +69,10 @@
 				</p>
 				<div class="comm">
 					<input type="text" placeholder="Make a comment ..." name=""/>
-					<button type="submit">Comment</button>
+					<div class="comment-button">
+						<button type="submit">Comment</button>
+					</div>
 				</div>
-				{% if logged_in == 1%}
-				<form action = "/games/{{game.id}}/rate" method="POST">
-					<input type="number" placeholder="Rate this game" name="rating"/>
-					<button type="submit">Rate</button>
-					{% if owned == 1 %}
-					<form action= "/games/{{game.id}}/unlike" method="POST">
-						<button type="submit">Unike</button>
-					</form>
-					{% else %}
-					<form action= "/games/{{game.id}}/like" method="POST">
-						<button type="submit">Like</button>
-					</form>
-					{% endif %}
-				</form>
-				{% else %}
-				<p><a href="/login">Log in</a> to rate games!</p>
-				{% endif %}
 			</div>
 		</div>	
   </div>

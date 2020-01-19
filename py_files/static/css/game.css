@@ -65,15 +65,58 @@ body {
   text-align: center;
   font-size: 1rem;
 }
+.comm button:hover{
+  background-color: rgba(53, 192, 53, 0.932);
+  opacity: .9;
+  color: #333;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
 .comm input{
   width: 100%;
   font-size: 1rem;
   padding-bottom: 2rem;
 }
+.comment-button button{
+  float:right;
+}
 .comm{
   display: flex;
   flex-direction: column;
 }
-.system-req{
-
+.system-req input{
+  font-size: 1rem;
+  padding: .5rem;
+  width: 8rem;
+}
+.system-req button{
+  border: none;
+}
+.rate{
+  background-color: rgba(53, 192, 53, 0.932);
+  color: white;
+  width: 4rem;
+  padding: .5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+.rate:hover{
+  background-color: rgba(53, 192, 53, 0.932);
+  opacity: .9;
+  color: #333;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.like{
+  background-color: white;
+  font-size: 1.5rem;
+}
+.like:hover{
+  color: blue;
+}
+.ulike{
+  background-color: white;
+  color: blue;
+  font-size: 1.5rem;
+}
+.ulike:hover{
+  color: black;
 }
