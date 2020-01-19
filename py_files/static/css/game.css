@@ -38,4 +38,42 @@ body {
   }
   .content-header{
       display: flex;
+      justify-content: space-between;
   }
+  .content-header h1{
+    margin-top: 11rem;
+    margin-bottom: 0;
+    font-size: 7rem;
+}
+.main-content{
+  display: flex;
+  justify-content: space-between;
+}
+.comments{
+  width: 75%;
+  margin-right: 2rem;
+}
+.comm button{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 50%;
+  border-radius: 4px;
+  border:none;
+  background-color: rgba(53, 192, 53, 0.932);
+  color: white;
+  padding: .5rem;
+  text-align: center;
+  font-size: 1rem;
+}
+.comm input{
+  width: 100%;
+  font-size: 1rem;
+  padding-bottom: 2rem;
+}
+.comm{
+  display: flex;
+  flex-direction: column;
+}
+.system-req{
+
+}
