@@ -24,28 +24,27 @@ class Owned(object):
             return Owned(*row)
 
     @staticmethod
-    def find_by_user(user):
+    def find_by_game_and_user(game, user):
         with DB() as db:
-            rows = db.execute(
-                'SELECT * FROM owned WHERE user_id = ?',
-                (user.id,)
-            ).fetchall()
-            return [Owned(*row) for row in rows]
-    @staticmethod
-    def find_by_game(game):
-        with DB() as db:
-            rows = db.execute(
-                'SELECT * FROM owned WHERE game_id = ?',
-                (game.id,)
-            ).fetchall()
-            return [Owned(*row) for row in rows]
+            row = db.execute(
+                'SELECT * FROM owned WHERE game_id = ? AND user_id = ?',
+                (game.id, user.id,)
+            ).fetchone()
+            if row:
+                return Owned(*row)
+            else:
+                return None
     def create(self):
         with DB() as db:
             values = (self.user.id, self.game.id,)
             db.execute('''
-                INSERT OR REPLACE INTO ratings (score, user_id, game_id)
-                VALUES (?, ?, ?)''', values)
+                INSERT OR REPLACE INTO owned(user_id, game_id)
+                VALUES (?, ?)''', values)
         
         return self
+    def delete(self):
+        with DB() as db:
+            db.execute(''' DELETE FROM owned WHERE id = ?''', (self.id,))
+
 
 

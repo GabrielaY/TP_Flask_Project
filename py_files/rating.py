@@ -46,7 +46,7 @@ class Rating(object):
             a = db.execute('''
                 INSERT OR REPLACE INTO ratings (score, user_id, game_id)
                 VALUES (?, ?, ?)''', values)
-        print a
+    
         return self
 
     def save(self):

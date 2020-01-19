@@ -60,7 +60,15 @@
 				<form action = "/games/{{game.id}}/rate" method="POST">
 					<input type="number" placeholder="Rate this game" name="rating"/>
 					<button type="submit">Rate</button>
-					<button type="submit">Like</button>
+					{% if owned == 1 %}
+					<form action= "/games/{{game.id}}/unlike" method="POST">
+						<button type="submit">Unike</button>
+					</form>
+					{% else %}
+					<form action= "/games/{{game.id}}/like" method="POST">
+						<button type="submit">Like</button>
+					</form>
+					{% endif %}
 				</form>
 				{% else %}
 				<p><a href="/login">Log in</a> to rate games!</p>
@@ -69,3 +77,4 @@
 		</div>	
   </div>
 </body>
+

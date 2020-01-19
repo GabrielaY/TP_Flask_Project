@@ -150,7 +150,6 @@ def sign_out():
 @require_login
 def rate_game(id):
 	p = request.form["rating"]
-	print p
 
 	game = Game.find(id)
 	user = User.find_by_username(session["USERNAME"])
@@ -162,7 +161,31 @@ def rate_game(id):
 	)
 	Rating(*values).create()
 	info_log.info("User rated game %s" % game.name)
-	return redirect('/')
+	return redirect('/games/<int:id>')
+
+@app.route('/games/<int:id>/like', methods=["POST"])
+@require_login
+def like_game(id):
+	game = Game.find(id)
+	user = User.find_by_username(session["USERNAME"])
+	values = (
+		None,
+		user,
+		game
+	)
+	Owned(*values).create()
+	info_log.info("User added %s to favorites" %game.name)
+	return redirect('/games')
+
+@app.route('/games/<int:id>/unlike', methods=["POST"])
+@require_login
+def unlike_game(id):
+	game = Game.find(id)
+	user = User.find_by_username(session["USERNAME"])
+	Owned.find_by_game_and_user(game, user).delete()
+	info_log.info("User added %s to favorites" %game.name)
+	return redirect('/games')
+
 
 
 @app.route('/categories/<int:id>/delete')
@@ -207,4 +230,9 @@ def show_game(id):
 	game = Game.find(id)
 	requirements = Requirements.find_by_game(Game.find(id))
 	rating = Game.calc_rating(id)
-	return render_template('game.html', game=game, rating=rating, logged_in = logged_in, requirements = requirements)
+	owned = 1
+	user = User.find_by_username(session['USERNAME'])
+	if not Owned.find_by_game_and_user(game, user):
+		owned = 0
+
+	return render_template('game.html', game=game, rating=rating, logged_in = logged_in, requirements = requirements, owned = owned)
