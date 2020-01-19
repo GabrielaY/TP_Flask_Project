@@ -8,9 +8,23 @@
 <p>
 {{ game.review }}
 </p>
+<h2> Mininal reuqirements: </h2>
+<p>CPU: {{requirements.cpu}}</p>
+<p>CPU SPEED: {{requirements.cpu_speed}}</p>
+<p>RAM: {{requirements.ram}}</p>
+<p>OS: {{requirements.os}}</p>
+<p>VIDEO CARD: {{requirements.video_card}}</p>
+<p>SOUND CARD: {{requirements.sound_card}}</p>
+<p>FREE DISC SPACE: {{requirements.free_disc_space}}</p>
+<p>VIDEO RAM: {{requirements.video_ram}}</p>
+</br>
+{% if logged_in == 1%}
 <form action = "/games/{{game.id}}/rate" method="POST">
 	<label>Rate this game!</label>
 	<input type="real" name="rating"/>
 	<br>
 	<button type="submit"> Rate!</button>
 </form>
+{% else %}
+<p><a href="/login">Log in</a> to rate games!</p>
+{% endif %}

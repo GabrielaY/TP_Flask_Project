@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS games
         name TEXT,
         developers TEXT,
         review TEXT,
-        rating REAL,
         release TEXT,
         image TEXT,
         category_id INTEGER,
@@ -42,6 +41,33 @@ CREATE TABLE IF NOT EXISTS ratings
         user_id INTEGER,
         game_id INTEGER,
         UNIQUE(user_id, game_id)
+        FOREIGN KEY(user_id) REFERENCES users(id),
+        FOREIGN KEY(game_id) REFERENCES games(id)
+    )
+''')
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS requirements
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        CPU TEXT,
+        CPU_speed TEXT,
+        RAM TEXT,
+        OS TEXT,
+        video_card TEXT,
+        sound_card TEXT,
+        free_disc_space TEXT,
+        video_RAM TEXT,
+        game_id INTEGER UNIQUE,
+        FOREIGN KEY(game_id) REFERENCES games(id)
+    )
+''')
+conn.cursor().execute('''
+CREATE TABLE IF NOT EXISTS owned
+    (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id INTEGER,
+        game_id INTEGER,
+        UNIQUE(user_id, game_id),
         FOREIGN KEY(user_id) REFERENCES users(id),
         FOREIGN KEY(game_id) REFERENCES games(id)
     )
