@@ -22,7 +22,7 @@ def before_request():
 def require_login(func):
 	@wraps(func)
 	def wrapper(*args, **kwargs):
-		if not session.get("logged_in"):
+		if session['logged_in'] == False:
 			return redirect('/login')
 		return func(*args, **kwargs)
 
@@ -161,7 +161,7 @@ def rate_game(id):
 	)
 	Rating(*values).create()
 	info_log.info("User rated game %s" % game.name)
-	return redirect('/games/<int:id>')
+	return redirect('/games/%s' %game.id)
 
 @app.route('/games/<int:id>/like', methods=["POST"])
 @require_login
@@ -175,7 +175,7 @@ def like_game(id):
 	)
 	Owned(*values).create()
 	info_log.info("User added %s to favorites" %game.name)
-	return redirect('/games')
+	return redirect('/games/%s' %game.id)
 
 @app.route('/games/<int:id>/unlike', methods=["POST"])
 @require_login
@@ -184,7 +184,7 @@ def unlike_game(id):
 	user = User.find_by_username(session["USERNAME"])
 	Owned.find_by_game_and_user(game, user).delete()
 	info_log.info("User added %s to favorites" %game.name)
-	return redirect('/games')
+	return redirect('/games/%s' %game.id)
 
 
 
@@ -225,6 +225,7 @@ def list_games():
 
 
 @app.route('/games/<int:id>')
+@require_login
 def show_game(id):
 	logged_in = session["logged_in"]
 	game = Game.find(id)

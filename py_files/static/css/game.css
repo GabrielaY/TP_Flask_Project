@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color:rgb(219, 216, 216);
+  }
+  .site-header {
+    position: fixed;
+    top:0;
+    width: 100%;
+    
+    background-color: #333;
+  }
+  .flex-box {
+    display: flex;
+    justify-content: space-between;
+  }
+  .flex-item{
+    display: flex;
+  }
+  .flex-item a {
+    color: lightgray;
+    text-align: center;
+    padding: 1rem 1rem;
+    text-decoration: none;
+  }
+.flex-item a:hover {
+    background-color: rgba(53, 192, 53, 0.932);
+    color: #333;
+  }
+  .content{
+    margin: 4rem auto;
+    margin-bottom: 0px;
+    max-width: 1400px;
+    min-height: 70vh;
+    padding:0 1.5rem;
+    color: #333;
+    background-color: white;
+    box-shadow: 4px 8px 10px 6px #888888;
+  }
+  .content-header{
+      display: flex;
+      justify-content: flex-start;
+  }
+  .content-header h1{
+    margin-top:7rem;
+    margin-bottom: 0;
+    margin-left: 7rem;
+    font-size: 4rem;
+}
+.main-content{
+  display: flex;
+  justify-content: space-between;
+}
+.comments{
+  width: 75%;
+  margin-right: 2rem;
+}
+.comm button{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 50%;
+  border-radius: 4px;
+  border:none;
+  background-color: rgba(53, 192, 53, 0.932);
+  color: white;
+  padding: .5rem;
+  text-align: center;
+  font-size: 1rem;
+}
+.comm button:hover{
+  background-color: rgba(53, 192, 53, 0.932);
+  opacity: .9;
+  color: #333;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.comm input{
+  width: 100%;
+  font-size: 1rem;
+  padding-bottom: 2rem;
+}
+.comment-button button{
+  float:right;
+}
+.comm{
+  display: flex;
+  flex-direction: column;
+}
+.system-req input{
+  font-size: 1rem;
+  padding: .5rem;
+  width: 8rem;
+}
+.system-req button{
+  border: none;
+}
+.rate{
+  background-color: rgba(53, 192, 53, 0.932);
+  color: white;
+  width: 4rem;
+  padding: .5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+.rate:hover{
+  background-color: rgba(53, 192, 53, 0.932);
+  opacity: .9;
+  color: #333;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+.like{
+  margin-top: 1rem;
+  background-color: white;
+  font-size: 1.5rem;
+}
+.like:hover{
+  color: red;
+}
+.ulike{
+  margin-top: 1rem;
+  background-color: white;
+  color: red;
+  font-size: 1.5rem;
+}
+.ulike:hover{
+  color: black;
+}

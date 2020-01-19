@@ -1,0 +1,55 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background-color:rgb(219, 216, 216);
+  }
+  .site-header {
+    position: fixed;
+    top:0;
+    width: 100%;
+    
+    background-color: #333;
+  }
+  .flex-box {
+    display: flex;
+    justify-content: space-between;
+  }
+  .flex-item{
+    display: flex;
+  }
+  a {
+    color: lightgray;
+    text-align: center;
+    padding: 1rem 1rem;
+    text-decoration: none;
+  }
+  a:hover {
+    background-color: rgba(53, 192, 53, 0.932);
+    color: #333;
+  }
+  .content{
+    margin: 5rem auto;
+    max-width: 1400px;
+    min-height: 80vh;
+    padding: 1rem;
+    background-color: white;
+    box-shadow: 4px 8px 10px 6px #888888;
+  }
+  .logout-btt{
+    background-color:rgb(255, 0, 0);
+    border:none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    color: white;
+    border-radius: 4px;
+    width: 200px;
+  }
+  .logout-btt:hover{
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  }
+  .content{
+    display: flex;
+  }
+  .fav-games{
+    padding: 1rem;
+  }

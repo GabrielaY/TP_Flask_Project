@@ -1,39 +1,82 @@
-<title>{{game.name}}</title>
-<a href="/">Home</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/game.css')}}">
+    <title>{{game.name}}</title>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="site-nav">
+        <div class="flex-box">
+          <div class="flex-item">
+            <a class="active" href="/main"><i class="fa fa-fw fa-home"></i></a>
+            <a href="/profile">Profile</a>
+            <a href="/categories">Categories</a>
+            <a href="/games">Games</a>
+          </div>
+          <div class="flex-item">
+            <a href="/register">Sign up</a>
+            <a href="/login">Login</a>
+          </div>
+        </div>
+    </nav>
+  </header>
+  <div class="content">
+		<div class="content-header">
+			<img style="height:20rem;" src={{game.image}}>
+			<h1>{{ game.name }}</h1>
+		</div>
+		<hr>
+		<div class="main-content">
+			<div class="system-req">
+				<h2>By: {{ game.developers }}</h2>
+				<h2>Rated: {{rating}}</h2>
+				{% if logged_in == 1%}
+				<form action = "/games/{{game.id}}/rate" method="POST">
+					<input type="number" placeholder="Rate this game" name="rating"/>
+					<button class="rate" type="submit">Rate</button>
+				</form>
+				{% if owned == 1 %}
+				<form action= "/games/{{game.id}}/unlike" method="POST">
+					<button class="ulike" type="submit"><i class="fa fa-heart	"></i></button>
+					<b>Unlike</b>
+				</form>
+				{% else %}
+				<form action= "/games/{{game.id}}/like" method="POST">
+					<button class="like" type="submit"><i class="fa fa-heart-o	"></i></button>
+					<b>Like</b>
+				</form>
+				{% endif %}
+				{% else %}
+				<p><a href="/login">Log in</a> to rate games!</p>
+				{% endif %}
+				<h2> Mininal reuqirements: </h2>
+				<p>CPU: {{requirements.cpu}}</p>
+				<p>CPU SPEED: {{requirements.cpu_speed}}</p>
+				<p>RAM: {{requirements.ram}}</p>
+				<p>OS: {{requirements.os}}</p>
+				<p>VIDEO CARD: {{requirements.video_card}}</p>
+				<p>SOUND CARD: {{requirements.sound_card}}</p>
+				<p>FREE DISC SPACE: {{requirements.free_disc_space}}</p>
+				<p>VIDEO RAM: {{requirements.video_ram}}</p>
+			</div>
+			<div class="comments">
+				<h2>Review:</h2>
+				<p>
+				{{ game.review }}
+				</p>
+				<div class="comm">
+					<input type="text" placeholder="Make a comment ..." name=""/>
+					<div class="comment-button">
+						<button type="submit">Comment</button>
+					</div>
+				</div>
+			</div>
+		</div>	
+  </div>
+</body>
 
-<h1>{{ game.name }}</h1>
-<h2>{{ game.developers }}</h2>
-<h3>{{rating}}</h3>
-<hr>
-<p>
-{{ game.review }}
-</p>
-<h2> Mininal reuqirements: </h2>
-<p>CPU: {{requirements.cpu}}</p>
-<p>CPU SPEED: {{requirements.cpu_speed}}</p>
-<p>RAM: {{requirements.ram}}</p>
-<p>OS: {{requirements.os}}</p>
-<p>VIDEO CARD: {{requirements.video_card}}</p>
-<p>SOUND CARD: {{requirements.sound_card}}</p>
-<p>FREE DISC SPACE: {{requirements.free_disc_space}}</p>
-<p>VIDEO RAM: {{requirements.video_ram}}</p>
-</br>
-{% if logged_in == 1%}
-	<form action = "/games/{{game.id}}/rate" method="POST">
-		<label>Rate this game!</label>
-		<input type="real" name="rating"/>
-		<br>
-		<button type="submit"> Rate!</button>
-	</form>
-	{% if owned == 1 %}
-	<form action= "/games/{{game.id}}/unlike" method="POST">
-		<button type="submit">Unike</button>
-	</form>
-	{% else %}
-	<form action= "/games/{{game.id}}/like" method="POST">
-		<button type="submit">Like</button>
-	</form>
-	{% endif %}
-{% else %}
-<p><a href="/login">Log in</a> to rate games!</p>
-{% endif %}
