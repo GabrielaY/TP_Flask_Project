@@ -9,11 +9,16 @@ from owned import Owned
 from datetime import timedelta
 from rating import Rating
 from game import Game
+from comment import Comment
 from game_categories import Category
 app = Flask(__name__)
 app.secret_key = "OCML3BRawWEUeaxcuKHLpw"
 SECURITY_PASSWORD_SALT = '35586E9D-C04C-53FA-CFA9D3CFB9727A28'
 
+@app.before_first_request
+def function_to_run_only_once():
+	session["USERNAME"] = None
+	session["logged_in"] = None
 @app.before_request
 def before_request():
     session.permanent = True
@@ -22,7 +27,7 @@ def before_request():
 def require_login(func):
 	@wraps(func)
 	def wrapper(*args, **kwargs):
-		if session['logged_in'] == False:
+		if not session['logged_in']:
 			return redirect('/login')
 		return func(*args, **kwargs)
 
@@ -125,7 +130,7 @@ def sort_by_newest():
 
 @app.route('/main')
 def main_page():
-	return render_template("main.html", games=Game.sort_by_rating())
+	return render_template("main.html")
 
 
 @app.route('/profile')
@@ -187,6 +192,28 @@ def unlike_game(id):
 	return redirect('/games/%s' %game.id)
 
 
+@app.route('/games/<int:id>/add_comment', methods=["POST"])
+@require_login
+def add_comment(id):
+	game = Game.find(id)
+	user = User.find_by_username(session["USERNAME"])
+	content = request.form["content"]
+	values = (
+		None,
+		content,
+		user,
+		game
+	)
+	Comment(*values).create()
+	info_log.info("User added a comment to %s" %game.name)
+	return redirect('/games/%s' %game.id)
+@app.route('/games/<int:id>/delete_comment/<int:cid>', methods=["POST"])
+@require_login
+def delete_comment(id,cid):
+	game = Game.find(id)
+	Comment.find_by_id(cid).delete()
+	info_log.info("User deleted a comment on %s" %game.name)
+	return redirect('/games/%s' %game.id)
 
 @app.route('/categories/<int:id>/delete')
 @require_admin
@@ -229,6 +256,7 @@ def list_games():
 def show_game(id):
 	logged_in = session["logged_in"]
 	game = Game.find(id)
+	comments = Comment.find_by_game(game)
 	requirements = Requirements.find_by_game(Game.find(id))
 	rating = Game.calc_rating(id)
 	owned = 1
@@ -236,4 +264,4 @@ def show_game(id):
 	if not Owned.find_by_game_and_user(game, user):
 		owned = 0
 
-	return render_template('game.html', game=game, rating=rating, logged_in = logged_in, requirements = requirements, owned = owned)
+	return render_template('game.html', game=game, rating=rating, logged_in = logged_in, requirements = requirements, owned = owned, comments = comments, user = user)
