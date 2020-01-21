@@ -33,7 +33,7 @@ body {
 }
   .content{
     margin: 4rem auto;
-    margin-bottom: 0px;
+    margin-bottom: 3rem;
     max-width: 1400px;
     min-height: 70vh;
     color: #333;
@@ -106,7 +106,7 @@ body {
   padding: 0.5rem;
   border-radius: 4px;
   margin-bottom: 1rem;
-  color: black;
+  color: #333;
 }
 .system-req input{
   font-size: 1rem;
