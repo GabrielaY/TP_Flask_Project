@@ -36,8 +36,21 @@
 				<h2>Rated: {{rating}}</h2>
 				{% if logged_in == 1%}
 				<form action = "/games/{{game.id}}/rate" method="POST">
-					<input type="number" placeholder="Rate this game" name="rating"/>
-					<button class="rate" type="submit">Rate</button>
+					<div class="rate">
+						<input type="radio" name="rating" value ="0">
+						<input type="radio" id="star5" name="rating" value="5" required/>
+						<label for="star5"></label>
+						<input type="radio" id="star4" name="rating" value="4" />
+						<label for="star4"></label>
+						<input type="radio" id="star3" name="rating" value="3" />
+						<label for="star3"></label>
+						<input type="radio" id="star2" name="rating" value="2" />
+						<label for="star2"></label>
+						<input type="radio" id="star1" name="rating" value="1"/>
+						<label for="star1" ></label>
+						<button class="rate" type="submit">Rate</button>
+					  </div>
+					
 				</form>
 				{% if owned == 1 %}
 				<form action= "/games/{{game.id}}/unlike" method="POST">
