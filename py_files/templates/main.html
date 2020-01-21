@@ -19,8 +19,13 @@
                 <a href="/games">Games</a>
               </div>
               <div class="flex-item">
+                {% if user == 0 %}
                 <a href="/register">Sign up</a>
                 <a href="/login">Login</a>
+                {% else %}
+                <p class="welcome">Logged in as {{username}}</p>
+                <a href="/logout">Logout</a>
+                {% endif %}
               </div>
             </div>
         </nav>

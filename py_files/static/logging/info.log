@@ -1,8 +1,12 @@
-2020-01-20 22:12:41,560 - info_log - INFO - User deleted a comment on werty
-2020-01-20 22:12:44,255 - info_log - INFO - User deleted a comment on werty
-2020-01-20 22:13:29,092 - info_log - INFO - del logged in successfully.
-2020-01-20 22:14:31,593 - info_log - INFO - del logged in successfully.
-2020-01-20 22:15:55,917 - info_log - INFO - del logged in successfully.
-2020-01-20 22:16:58,456 - info_log - INFO - User added werty to favorites
-2020-01-20 22:42:00,561 - info_log - INFO - User rated game Dragon Age: Inquisition
-2020-01-20 22:55:35,324 - info_log - INFO - User logged_out
+2020-01-21 09:43:20,748 - info_log - INFO - User added Skyrim to favorites
+2020-01-21 09:43:25,026 - info_log - INFO - User added a comment to Skyrim
+2020-01-21 09:43:26,436 - info_log - INFO - User deleted a comment on Skyrim
+2020-01-21 09:43:49,866 - info_log - INFO - User added ARK: Survival Evolved to favorites
+2020-01-21 09:44:02,318 - info_log - INFO - User rated game ARK: Survival Evolved
+2020-01-21 09:45:37,761 - info_log - INFO - User added Doom to favorites
+2020-01-21 09:45:56,967 - info_log - INFO - User rated game Skyrim
+2020-01-21 09:46:03,450 - info_log - INFO - User rated game Dragon Age: Inquisition
+2020-01-21 09:46:10,168 - info_log - INFO - User rated game Doom
+2020-01-21 09:47:31,526 - info_log - INFO - gabi logged in successfully.
+2020-01-21 09:48:11,701 - info_log - INFO - gabi logged in successfully.
+2020-01-21 09:51:52,013 - info_log - INFO - gabi logged in successfully.

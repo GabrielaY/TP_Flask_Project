@@ -31,6 +31,10 @@ body {
   background-color: rgba(53, 192, 53, 0.932);
   color: #333;
 }
+.welcome{
+  color: lightgrey;
+  margin-right: 1rem;
+}
 .content{
   width: 800px;
   background-color: white;

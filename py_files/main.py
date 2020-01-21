@@ -46,7 +46,7 @@ def require_admin(func):
 
 
 @app.route('/')
-def hello_world():
+def start():
 	return redirect("/main")
 
 
@@ -130,7 +130,11 @@ def sort_by_newest():
 
 @app.route('/main')
 def main_page():
-	return render_template("main.html")
+	if User.find_by_username(session["USERNAME"]):
+		user = 1
+	else:
+		user = 0
+	return render_template("main.html", user = user, username = session["USERNAME"])
 
 
 @app.route('/profile')
@@ -139,7 +143,7 @@ def view_profile():
 
 	user = User.find_by_username(session["USERNAME"])
 
-	return render_template("user_profile.html", user=user, games=Game.owned_by_user(user.id))
+	return render_template("user_profile.html", user=user, games=Game.owned_by_user(user.id), username = session["USERNAME"])
 	
 
 @app.route('/logout')
@@ -238,17 +242,25 @@ def new_category():
 @app.route('/categories/<int:id>')
 def get_category(id):
 	user = User.find_by_username(session['USERNAME'])
-	return render_template("category.html", user=user, category=Category.find(id))
+	return render_template("category.html", user=user, category=Category.find(id), username = session["USERNAME"])
 
 
 @app.route('/categories')
 def get_categories():
-	return render_template("categories.html", categories=Category.all(), user=User.find_by_username(session['USERNAME']))
+	if User.find_by_username(session["USERNAME"]):
+		user = 1
+	else:
+		user = 0
+	return render_template("categories.html", categories=Category.all(), user=User.find_by_username(session['USERNAME']), username = session["USERNAME"])
 
 
 @app.route('/games')
 def list_games():
-	return render_template('games.html', games=Game.all())
+	if User.find_by_username(session["USERNAME"]):
+		user = 1
+	else:
+		user = 0
+	return render_template('games.html', games=Game.all(), user = user, username = session["USERNAME"])
 
 
 @app.route('/games/<int:id>')
@@ -264,4 +276,4 @@ def show_game(id):
 	if not Owned.find_by_game_and_user(game, user):
 		owned = 0
 
-	return render_template('game.html', game=game, rating=rating, logged_in = logged_in, requirements = requirements, owned = owned, comments = comments, user = user)
+	return render_template('game.html', game=game, rating=rating, logged_in = logged_in, requirements = requirements, owned = owned, comments = comments, user = user, username = session["USERNAME"])
