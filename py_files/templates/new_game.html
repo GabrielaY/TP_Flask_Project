@@ -1,0 +1,44 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/form.css')}}">
+    <link rel="shortcut icon" href="static/favcon.ico" type="image/x-icon">
+    <title>Add game</title>
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="heading">
+            <h1 class="main-heading">Add game</h1>
+        </div>
+        <div class="form" >
+         	<form action="/games/new" method="POST">
+			<input name="name" placeholder="Name">
+			<input name="developers" placeholder="Developers">
+			<input name="review" placeholder="Review">
+			<input name="release" placeholder="Year of release">
+			<input name="image" placeholder="image url">
+			<input name="category" placeholder="category">
+			<input name="cpu" placeholder="CPU">
+			<input name="cpu_speed" placeholder="CPU speed">
+			<input name="ram" placeholder="RAM">
+			<input name="os" placeholder="OS">
+			<input name="video_card" placeholder="Video card">
+			<input name="sound_card" placeholder="Sound card (Yes/No)">
+			<input name="free_space" placeholder="Free disc space">
+			<input name="video_ram" placeholder="Video ram">
+
+
+	<button type="submit">Enter</button>
+</form> 
+        </div>
+    </div>
+
+</body>
+</html>

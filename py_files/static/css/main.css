@@ -51,14 +51,14 @@ body {
 }
 .game h1{
   color: #333;
-  padding: 1rem;
+  padding: 2rem;
   padding-bottom: 0;
   margin: 0;
 }
 .games {
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+
 
 }
 .games > a{

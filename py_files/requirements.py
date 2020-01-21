@@ -36,9 +36,9 @@ class Requirements(object):
             return Requirements(*row)
     def create(self):
         with DB() as db:
-            values = (self.id, self.cpu, self.cpu_speed, self.ram, self.os, self.video_card, self.sound_card, self.free_disc_space, self.video_ram, self.game,)
+            values = (self.id, self.cpu, self.cpu_speed, self.ram, self.os, self.video_card, self.sound_card, self.free_disc_space, self.video_ram, self.game.id,)
             a = db.execute('''
-                INSERT OR REPLACE INTO requirements (id, cpu, cpu_speed, ram, os, video_card, sound_card, free_disc_space, video_ram, game)
+                INSERT OR REPLACE INTO requirements (id, cpu, cpu_speed, ram, os, video_card, sound_card, free_disc_space, video_ram, game_id)
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', values)
         return self
 

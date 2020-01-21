@@ -20,6 +20,13 @@ class Category:
             if not row:
                 return Category(0, "No category")
             return Category(*row)
+    @staticmethod
+    def find_by_name(name):
+        with DB() as db:
+            row = db.execute('SELECT * FROM categories WHERE name = ?', (name,)).fetchone()
+            if not row:
+                return Category(0, "No category")
+            return Category(*row)
 
     
     def create(self):

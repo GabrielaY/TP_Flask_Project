@@ -23,6 +23,14 @@ class Game:
 				SELECT game_id, name, developers, review, release, image, category_id  FROM ratings JOIN games  ON ratings.game_id = games.id GROUP BY game_id ORDER BY avg(score) DESC;
 			''').fetchall()
 			return [Game(*row) for row in rows]
+	@staticmethod
+	def sort_top_5_by_rating():
+		with DB() as db:
+			rows = db.execute('''
+				SELECT game_id, name, developers, review, release, image, category_id  FROM ratings JOIN games  ON ratings.game_id = games.id GROUP BY game_id ORDER BY avg(score) DESC LIMIT 5;
+			''').fetchall()
+			return [Game(*row) for row in rows]
+
 
 	@staticmethod
 	def owned_by_user(id):
@@ -72,13 +80,21 @@ class Game:
 				(category.id,)
 			).fetchall()
 			return [Game(*row) for row in rows]
+	@staticmethod
+	def find_by_name(name):
+		with DB() as db:
+			row = db.execute(
+				'SELECT * FROM games WHERE name = ?',
+				(name,)
+			).fetchone()
+			return Game(*row)
 	
 	def create(self):
 		with DB() as db:
-			values = (self.name, self.developers, self.review, self.image, self.category.id)
+			values = (self.id, self.name, self.developers, self.review, self.release, self.image, self.category.id)
 			db.execute('''
-				INSERT INTO games (name, developers, review, release, image, category_id)
-				VALUES (?, ?, ?, ?, ?, ?)''', values)
+				INSERT INTO games (id, name, developers, review, release, image, category_id)
+				VALUES (?, ?, ?, ?, ?, ?, ?)''', values)
 			return self
 
 	def save(self):

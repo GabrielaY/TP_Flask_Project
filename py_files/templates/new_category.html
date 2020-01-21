@@ -1,6 +1,27 @@
-<form action="/categories/new" method="post">
-    <label>Name</label>
-    <input name="name"/>
-    </br>
-    <button type="submit">Submit</button>
-</form>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{url_for('static', filename='css/form.css')}}">
+    <link rel="shortcut icon" href="static/favcon.ico" type="image/x-icon">
+    <title>Add Category</title>
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="heading">
+            <h1 class="main-heading">Add category</h1>
+        </div>
+        <div class="form" >
+        	<form action="/categories/new" method="post">
+			    <input name="name" placeholder="Name" />
+			    <button type="submit">Submit</button>
+			</form>
+        </div>
+    </div>
+
+</body>
+</html>

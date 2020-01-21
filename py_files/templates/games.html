@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/games.css')}}">
+    <link rel="shortcut icon" href="static/favcon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="static/favcon.ico" type="image/x-icon">
     <title>Games</title>
 </head>
 <body>
@@ -14,7 +16,7 @@
             <div class="flex-box">
               <div class="flex-item">
                 <a class="active" href="/main"><i class="fa fa-fw fa-home"></i></a>
-                <a href="/profile">Profile</a>
+                <a href="/profile"><i class="fa fa-user"></i></a>
                 <a href="/categories">Categories</a>
                 <a href="/games">Games</a>
               </div>
@@ -41,8 +43,11 @@
         </div> 
         <div class="game">
           {% for game in games %}
-          <a href="/games/{{ game.id }}"><img style="height:325px;" src={{game.image}}></a>
+          <a href="/games/{{ game.id }}"><img style="height:300px; width: 200px;padding: 0 1.9em;" src={{game.image}}></a>
           {% endfor %}
+          {% if active_user.admin == 1 %}
+            <a href="/games/new"><div class="add"><b>Add game</b></div></a>
+          {% endif %}
         </div>
     </div>   
 </body>

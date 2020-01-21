@@ -115,17 +115,17 @@ def register():
 
 @app.route('/games/sort_by_rating')
 def sort_by_rating():
-	return render_template("games.html", games=Game.sort_by_rating())
+	return render_template("games.html", games=Game.sort_by_rating(), active_user = User.find_by_username(session['USERNAME']))
 
 
 @app.route('/games/sort_by_alp')
 def sort_by_alp():
-	return render_template("games.html", games=Game.sort_by_alp())
+	return render_template("games.html", games=Game.sort_by_alp(), active_user = User.find_by_username(session['USERNAME']))
 
 
 @app.route('/games/newest')
 def sort_by_newest():
-	return render_template("games.html", games=Game.sort_by_newest())
+	return render_template("games.html", games=Game.sort_by_newest(), active_user = User.find_by_username(session['USERNAME']))
 
 
 @app.route('/main')
@@ -134,7 +134,7 @@ def main_page():
 		user = 1
 	else:
 		user = 0
-	return render_template("main.html", user = user, username = session["USERNAME"])
+	return render_template("main.html", user = user, username = session["USERNAME"], games = Game.sort_top_5_by_rating())
 
 
 @app.route('/profile')
@@ -220,6 +220,7 @@ def delete_comment(id,cid):
 	return redirect('/games/%s' %game.id)
 
 @app.route('/categories/<int:id>/delete')
+@require_login
 @require_admin
 def delete_category(id):
 	Category.find(id).delete()
@@ -228,6 +229,7 @@ def delete_category(id):
 
 
 @app.route('/categories/new', methods=["GET", "POST"])
+@require_login
 @require_admin
 def new_category():
 	if request.method == "GET":
@@ -241,8 +243,11 @@ def new_category():
 
 @app.route('/categories/<int:id>')
 def get_category(id):
-	user = User.find_by_username(session['USERNAME'])
-	return render_template("category.html", user=user, category=Category.find(id), username = session["USERNAME"])
+	if User.find_by_username(session["USERNAME"]):
+		user = 1
+	else:
+		user = 0
+	return render_template("category.html", active_user=User.find_by_username(session['USERNAME']), category=Category.find(id), username = session["USERNAME"], user = user)
 
 
 @app.route('/categories')
@@ -251,7 +256,7 @@ def get_categories():
 		user = 1
 	else:
 		user = 0
-	return render_template("categories.html", categories=Category.all(), user=User.find_by_username(session['USERNAME']), username = session["USERNAME"])
+	return render_template("categories.html", categories=Category.all(), active_user=User.find_by_username(session['USERNAME']), username = session["USERNAME"], user = user)
 
 
 @app.route('/games')
@@ -260,7 +265,7 @@ def list_games():
 		user = 1
 	else:
 		user = 0
-	return render_template('games.html', games=Game.all(), user = user, username = session["USERNAME"])
+	return render_template('games.html', games=Game.all(), user = user, username = session["USERNAME"], active_user = User.find_by_username(session['USERNAME']))
 
 
 @app.route('/games/<int:id>')
@@ -276,4 +281,28 @@ def show_game(id):
 	if not Owned.find_by_game_and_user(game, user):
 		owned = 0
 
-	return render_template('game.html', game=game, rating=rating, logged_in = logged_in, requirements = requirements, owned = owned, comments = comments, user = user, username = session["USERNAME"])
+	return render_template('game.html', game=game, rating=rating, logged_in = logged_in, requirements = requirements, owned = owned, comments = comments, user = user, username = session["USERNAME"], active_user = User.find_by_username(session["USERNAME"]))
+
+@app.route('/games/new', methods=["GET", "POST"])
+@require_login
+@require_admin
+def add_game():
+	if request.method == "GET":
+		return render_template("new_game.html")
+	elif request.method == "POST":
+		category = Category.find_by_name(request.form["category"])
+		game = Game(None, request.form["name"], request.form["developers"], request.form["review"], request.form["release"], request.form["image"], category)
+		game.create()
+		game = Game.find_by_name(request.form["name"])
+		requirements = Requirements(None, request.form["cpu"], request.form["cpu_speed"], request.form["ram"], request.form["os"], request.form["video_card"], request.form["sound_card"], request.form["free_space"], request.form["video_ram"], game)
+		requirements.create()
+		info_log.info("Game added successfully!")
+		return redirect("/")
+
+@app.route('/games/<int:id>/delete')
+@require_login
+@require_admin
+def delete_game(id):
+	Game.find(id).delete()
+	info_log.info("CGame deleted")
+	return redirect("/games")

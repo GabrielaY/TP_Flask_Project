@@ -39,7 +39,7 @@ body {
   box-shadow: 4px 8px 10px 6px #888888;
 }
 .logout-btt{
-  background-color:rgb(255, 0, 0);
+  background-color: #d91818;
   border:none;
   padding: 0.5rem;
   margin-left: 1.5rem;
@@ -50,7 +50,18 @@ body {
   width: 200px;
 }
 .category-btt{
-  background-color: green;
+  background-color: #519406;
+  border:none;
+  padding: 0.5rem;
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  font-size: 1rem;
+  color: white;
+  border-radius: 4px;
+  width: 200px;
+}
+.game-btt{
+  background-color: #186ec9;
   border:none;
   padding: 0.5rem;
   margin-left: 1.5rem;
@@ -71,14 +82,26 @@ body {
 .category-btt:hover{
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
 }
+.game-btt:hover{
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
 .content{
   display: flex;
 
 }
 .fav-games{
   padding: 1.5rem;
-  color: #333;
+  color: #333;  
+
 }
 .fav-games a:hover{
   opacity: 0.6;
+}
+.fav-header{
+  display: flex;
+  color: white;
+  text-align: center;
+  width:66.7em;  
+  justify-content: center;
+  background-color: green;
 }

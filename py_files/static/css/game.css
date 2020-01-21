@@ -47,7 +47,7 @@ body {
       padding:0 1.5rem;
   }
   .content-header h1{
-    margin-left: 7rem;
+    margin-left: 6rem;
     font-size: 4rem;
 }
 .main-content{
@@ -120,7 +120,7 @@ body {
   background-color: rgba(53, 192, 53, 0.932);
   color: white;
   width: 4rem;
-  margin-left: 0;
+  margin-left: -0.5rem;
   margin-right: 1rem;
   padding: .5rem;
   font-size: 1rem;
@@ -161,13 +161,16 @@ body {
   color:lightgrey;
 }
 .rate {
-  float: left;
   height: 46px;
-  padding: 0 10px;
+  padding: 0px 10px;
+  margin-right: 4rem;
+
+
 }
 .rate:not(:checked) > input {
   position:absolute;
   top:-9999px;
+
 }
 .rate:not(:checked) > label {
   float:right;
@@ -182,9 +185,11 @@ body {
   content: '★ ';
 }
 .rate > input:checked ~ label {
-  color: yellow;    
+  color: #fad900;    
 }
 .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
-  color: yellow;  
+  color: #fad900;  
 }
+
+
