@@ -19,9 +19,14 @@
             <a href="/games">Games</a>
           </div>
           <div class="flex-item">
-            <a href="/register">Sign up</a>
-            <a href="/login">Login</a>
-          </div>
+                {% if user == 0 %}
+                <a href="/register">Sign up</a>
+                <a href="/login">Login</a>
+                {% else %}
+                <p class="welcome">Logged in as {{username}}</p>
+                <a href="/logout">Logout</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
   </header>
@@ -34,6 +39,7 @@
 			<div class="system-req">
 				<h2>By: {{ game.developers }}</h2>
 				<h2>Rated: {{rating}}</h2>
+				<h2>Released: {{game.release}}</h2>
 				{% if logged_in == 1%}
 				<form action = "/games/{{game.id}}/rate" method="POST">
 					<div class="rate">
@@ -76,16 +82,34 @@
 				<p>FREE DISC SPACE: {{requirements.free_disc_space}}</p>
 				<p>VIDEO RAM: {{requirements.video_ram}}</p>
 			</div>
-			<div class="comments">
+			<div class="review">
 					<h2>Review:</h2>
 					<p>
 					{{ game.review }}
 					</p>
 				<div class="comm">
-					<input type="text" placeholder="Make a comment ..." name=""/>
+					<h2>Comments:</h2>
+					{% for comment in comments%}
+					<div class="comment_content">
+						<p>{{comment.content}}</p>
+						{% if comment.user == user.username %}
+						<form action="/games/{{game.id}}/delete_comment/{{comment.id}}" method="POST">
+							<button id = "del_button">Delete</button>
+						</form>
+						{% else %}
+						<b style="float: right;"> By: {{comment.user}}</b>
+						{% endif %}
+						
+					</div>
+					
+					{% endfor %}
+					<form action="/games/{{game.id}}/add_comment" method="POST">
+					<hr>
+					<input type="text" placeholder="Make a comment ..." name="content"/>
 					<div class="comment-button">
 						<button type="submit">Comment</button>
 					</div>
+					</form>
 				</div>
 			</div>
 		</div>	

@@ -43,7 +43,7 @@ class Rating(object):
     def create(self):
         with DB() as db:
             values = (self.score, self.user.id, self.game.id,)
-            a = db.execute('''
+            db.execute('''
                 INSERT OR REPLACE INTO ratings (score, user_id, game_id)
                 VALUES (?, ?, ?)''', values)
     

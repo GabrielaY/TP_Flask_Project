@@ -26,7 +26,11 @@ body {
 .flex-item a:hover {
     background-color: rgba(53, 192, 53, 0.932);
     color: #333;
-  }
+}
+.welcome{
+  color: lightgrey;
+  margin-right: 1rem;
+}
   .content{
     margin: 4rem auto;
     margin-bottom: 0px;
@@ -53,9 +57,8 @@ body {
   background-color: #333;
   color: lightgrey;
 }
-.comments{
+.review{
   width: 75%;
-  margin-top: 2rem;
   margin-right: 2rem;
 }
 .comm button{
@@ -88,6 +91,22 @@ body {
 .comm{
   display: flex;
   flex-direction: column;
+}
+#del_button{
+  background-color: red; 
+  width: 5em; 
+  padding: 0.5em;
+  float: right;
+  margin-top: -0.5em;
+  margin-bottom: 0;
+
+}
+.comment_content{
+  background-color: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  color: black;
 }
 .system-req input{
   font-size: 1rem;
