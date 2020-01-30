@@ -87,6 +87,7 @@ body {
 }
 .comment-button button{
   float:right;
+  margin-bottom: 0;
 }
 .comm{
   display: flex;
@@ -97,7 +98,6 @@ body {
   width: 5em; 
   padding: 0.5em;
   float: right;
-  margin-top: -0.5em;
   margin-bottom: 0;
 
 }
